@@ -5,7 +5,8 @@ class Form extends React.Component {
       super();
       this.state = {
         name: "",
-        shareholders: [{ name: "" }]
+        columns: [{ name: "" }],
+        subcolumns: [{ subname: "" }]
       };
     }
   
@@ -13,29 +14,29 @@ class Form extends React.Component {
       this.setState({ name: evt.target.value });
     };
   
-    handleShareholderNameChange = idx => evt => {
-      const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
-        if (idx !== sidx) return shareholder;
-        return { ...shareholder, name: evt.target.value };
+    handleColumnNameChange = idx => evt => {
+      const newColumns = this.state.columns.map((column, sidx) => {
+        if (idx !== sidx) return column;
+        return { ...column, name: evt.target.value };
       });
   
-      this.setState({ shareholders: newShareholders });
+      this.setState({ columns: newColumns });
     };
   
     handleSubmit = evt => {
-      const { name, shareholders } = this.state;
-      alert(`Incorporated: ${name} with ${shareholders.length} shareholders`);
+      const { name, columns } = this.state;
+      alert(`Incorporated: ${name} with ${columns.length} columns`);
     };
   
-    handleAddShareholder = () => {
+    handleAddColumn = () => {
       this.setState({
-        shareholders: this.state.shareholders.concat([{ name: "" }])
+        columns: this.state.columns.concat([{ name: "" }])
       });
     };
   
-    handleRemoveShareholder = idx => () => {
+    handleRemoveColumn = idx => () => {
       this.setState({
-        shareholders: this.state.shareholders.filter((s, sidx) => idx !== sidx)
+        columns: this.state.columns.filter((s, sidx) => idx !== sidx)
       });
     };
   
@@ -51,26 +52,35 @@ class Form extends React.Component {
   
           <h3>Columns</h3>
   
-          {this.state.shareholders.map((shareholder, idx) => (
-            <div className="shareholder">
+          {this.state.columns.map((column, idx) => (
+            <div className="column">
               <input
                 type="text"
                 placeholder={`Column #${idx + 1} name`}
-                value={shareholder.name}
-                onChange={this.handleShareholderNameChange(idx)}
+                value={column.name}
+                onChange={this.handleColumnNameChange(idx)}
               />
               <button
                 type="button"
-                onClick={this.handleRemoveShareholder(idx)}
+                onClick={this.handleRemoveColumn(idx)}
                 className="small"
               >
                 -
               </button>
+
+              <button
+                type="button"
+                onClick={this.handleRemoveColumn(idx)}
+                className="small"
+              >
+                Add Subheading
+              </button>
+
             </div>
           ))}
           <button
             type="button"
-            onClick={this.handleAddShareholder}
+            onClick={this.handleAddColumn}
             className="small"
           >
             Add Column
