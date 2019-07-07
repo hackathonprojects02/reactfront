@@ -33,16 +33,36 @@ class Form extends React.Component {
         columns: this.state.columns.concat([{ name: "" }])
       });
     };
+
+    handleAddSubColumn = () => {
+        this.setState({
+          subcolumns: this.state.subcolumns.concat([{ subname: "" }])
+        });
+      };
   
     handleRemoveColumn = idx => () => {
+
       this.setState({
         columns: this.state.columns.filter((s, sidx) => idx !== sidx)
       });
     };
+
+    handleRemoveSubColumn = idx => () => {
+        this.setState({
+          subcolumns: this.state.subcolumns.filter((s, sidx) => idx !== sidx)
+        });
+      };
+
+    handleSubcoloumn = evt => {
+       
+        // console.log('hihi');
+        // console.log(evt.target.value);
+        //column: this.state.columns.filter((s, sidx) => idx !== sidx)
+    };
   
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
+        <form action="#" method="post" onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="Please enter the name of the object"
@@ -51,6 +71,21 @@ class Form extends React.Component {
           />
   
           <h3>Columns</h3>
+
+          {/* {this.state.subcolumns.map((subcolumn, idx) => (
+              <div className="subcolumn">
+                  <h1>THIS IS A SUBCOLUMN</h1>
+                 
+                  <button
+                type="button"
+                onClick={this.handleRemoveSubColumn(idx)}
+                className="small"
+              >
+                -
+              </button>
+              
+              </div>
+          ))} */}
   
           {this.state.columns.map((column, idx) => (
             <div className="column">
@@ -70,9 +105,8 @@ class Form extends React.Component {
 
               <button
                 type="button"
-                onClick={this.handleRemoveColumn(idx)}
-                className="small"
-              >
+                onClick={this.handleAddSubColumn}
+                className="small">
                 Add Subheading
               </button>
 
@@ -85,10 +119,14 @@ class Form extends React.Component {
           >
             Add Column
           </button>
+
           <button>Submit</button>
+
         </form>
+    
       );
     }
   }
 
 export default Form;
+

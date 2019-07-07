@@ -72,6 +72,10 @@ form button.small:hover {
   align-items: center;
 }
 
+.subcolumn {
+  background: red;
+}
+
 .column button {
   margin: 0;
   margin-left: 10px;
